@@ -1,23 +1,15 @@
-document.addEventListener('DOMContentLoaded', function () {
+// Wait for DOM to be fully loaded
+document.addEventListener('DOMContentLoaded', function() {
+
+  // ========== HAMBURGER MENU TOGGLE ==========
   const hamburger = document.querySelector('.hamburger');
   const navLinks = document.querySelector('.nav-links');
 
   if (hamburger && navLinks) {
-    hamburger.addEventListener('click', function () {
+    hamburger.addEventListener('click', function() {
       navLinks.classList.toggle('show');
     });
   }
-
-  // Close menu when a link is clicked (optional)
-  const navItems = document.querySelectorAll('.nav-links a');
-  navItems.forEach(link => {
-    link.addEventListener('click', () => {
-      navLinks.classList.remove('show');
-    });
-  });
-
-  // (Keep your existing FAQ or other JS below)
-});
 
   // ========== FAQ ACCORDION (only on faq.html) ==========
   const faqItems = document.querySelectorAll('.faq-item');
