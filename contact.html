@@ -2,23 +2,48 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <title>LOTPUB – Contact</title>
-  <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body { font-family:'Inter',sans-serif; background:#f8f9ff; color:#1e1e2f; }
+    :root { --primary:#8B5CF6; --primary-dark:#6D28D9; }
+    .container { max-width:1200px; margin:0 auto; padding:0 20px; }
+    .navbar { background:white; position:sticky; top:0; z-index:1000; border-bottom:1px solid rgba(139,92,246,0.1); }
+    .nav-container { display:flex; justify-content:space-between; align-items:center; padding:0.8rem 20px; max-width:1200px; margin:0 auto; }
+    .logo { display:flex; align-items:center; gap:10px; }
+    .logo-img { height:40px; }
+    .logo h1 span { background:linear-gradient(135deg,var(--primary),var(--primary-dark)); -webkit-background-clip:text; background-clip:text; color:transparent; }
+    .nav-links { display:flex; gap:2rem; list-style:none; }
+    .nav-links a { text-decoration:none; color:#1e1e2f; font-weight:500; }
+    .btn-outline { border:2px solid var(--primary); background:transparent; padding:0.4rem 1.2rem; border-radius:40px; color:var(--primary); }
+    .hamburger { display:none; background:none; border:none; font-size:1.8rem; cursor:pointer; }
+    @media (max-width:768px) {
+      .hamburger { display:block; }
+      .nav-links { position:fixed; top:0; left:-100%; width:75%; max-width:280px; height:100vh; background:white; flex-direction:column; justify-content:center; align-items:center; gap:2rem; transition:left 0.3s; z-index:1000; box-shadow:2px 0 15px rgba(0,0,0,0.1); }
+      .nav-links.show { left:0; }
+      body.menu-open::before { content:''; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5); z-index:999; }
+    }
+    .btn-primary { background:linear-gradient(135deg,var(--primary),var(--primary-dark)); color:white; padding:0.7rem 1.5rem; border-radius:40px; text-decoration:none; display:inline-block; border:none; cursor:pointer; }
+    .contact-wrapper { display:flex; gap:2rem; flex-wrap:wrap; margin:2rem 0; }
+    .contact-form, .contact-info { flex:1; background:white; padding:1.5rem; border-radius:1rem; border:1px solid #eef2ff; }
+    .form-group { margin-bottom:1rem; }
+    .form-group input, .form-group select, .form-group textarea { width:100%; padding:0.7rem; border:1px solid #e2e8f0; border-radius:0.8rem; font-family:inherit; }
+    footer { background:#1E1B2E; color:#b1b1c0; padding:2rem 0; text-align:center; margin-top:3rem; }
+    .whatsapp-float { position:fixed; bottom:20px; right:20px; background:#25D366; color:white; border-radius:50%; width:55px; height:55px; display:flex; align-items:center; justify-content:center; font-size:1.8rem; text-decoration:none; z-index:100; }
+  </style>
 </head>
 <body>
 
 <nav class="navbar">
   <div class="nav-container">
     <div class="logo">
-      <img src="images/logo.png" alt="LOTPUB logo" class="logo-img">
+      <img src="images/logo.png" alt="LOTPUB logo" class="logo-img" onerror="this.src='https://via.placeholder.com/40?text=LP'">
       <h1>LOTPUB <span>Coding School</span></h1>
     </div>
-    <button class="hamburger" id="hamburgerBtn">
-      <i class="fas fa-bars"></i>
-    </button>
+    <button class="hamburger" id="hamburgerBtn"><i class="fas fa-bars"></i></button>
     <ul class="nav-links" id="navLinks">
       <li><a href="index.html">Home</a></li>
       <li><a href="courses.html">Courses</a></li>
@@ -31,84 +56,67 @@
   </div>
 </nav>
 
-  <!-- Main Content -->
-  <main class="container">
-    <h1 class="page-title">Get in <span>Touch</span></h1>
-    <p class="page-subtitle">We usually reply within a few hours</p>
-
-    <div class="contact-wrapper">
-      <!-- Contact Form -->
-      <div class="contact-form">
-        <h3>Send us a message</h3>
-        <form id="contactForm">
-          <div class="form-group">
-            <label for="name">Your name</label>
-            <input type="text" id="name" name="name" required>
-          </div>
-          <div class="form-group">
-            <label for="email">Email address</label>
-            <input type="email" id="email" name="email" required>
-          </div>
-          <div class="form-group">
-            <label for="course">Course interested in (optional)</label>
-            <select id="course" name="course">
-              <option value="">Select a course</option>
-              <option value="Beginner">Beginner (₦7,000)</option>
-              <option value="Intermediate">Intermediate (₦15,000)</option>
-              <option value="Pro">Pro (₦25,000)</option>
-              <option value="Bundle">Bundle / Other</option>
-            </select>
-          </div>
-          <div class="form-group">
-            <label for="message">Message</label>
-            <textarea id="message" name="message" rows="4" placeholder="Any questions?"></textarea>
-          </div>
-          <button type="submit" class="btn-primary"><i class="fab fa-whatsapp"></i> Send via WhatsApp</button>
-        </form>
-      </div>
-
-      <!-- Direct Contact Info -->
-      <div class="contact-info">
-        <h3>Or reach us directly</h3>
-        <div class="contact-method">
-          <i class="fab fa-whatsapp"></i>
-          <span>+234 9022829616</span>
-          <a href="https://wa.me/2349022829616" target="_blank" class="btn-small">Chat now</a>
-        </div>
-        <div class="contact-method">
-          <i class="far fa-envelope"></i>
-          <span>lotpub.tech@gmail.com</span>
-          <a href="mailto:lotpub.tech@gmail.com" class="btn-small">Email</a>
-        </div>
-        <div class="contact-method">
-          <i class="fab fa-instagram"></i>
-          <span>@lotpub_coding</span>
-          <a href="#" target="_blank" class="btn-small">DM us</a>
-        </div>
-        <div class="info-note">
-          <i class="fas fa-clock"></i>
-          <p>Mon‑Sat: 9am – 7pm (WAT)<br>We reply quickly, even on weekends.</p>
-        </div>
-      </div>
+<main class="container" style="padding:2rem 0;">
+  <h1 style="text-align:center; font-size:2rem;">Get in <span style="color:var(--primary);">Touch</span></h1>
+  <div class="contact-wrapper">
+    <div class="contact-form">
+      <h3>Send us a message</h3>
+      <form id="contactForm">
+        <div class="form-group"><input type="text" id="name" placeholder="Your name" required></div>
+        <div class="form-group"><input type="email" id="email" placeholder="Email address" required></div>
+        <div class="form-group"><select id="course"><option value="">Select course (optional)</option><option>Beginner</option><option>Intermediate</option><option>Pro</option></select></div>
+        <div class="form-group"><textarea id="message" rows="3" placeholder="Your message..."></textarea></div>
+        <button type="submit" class="btn-primary"><i class="fab fa-whatsapp"></i> Send via WhatsApp</button>
+      </form>
     </div>
-  </main>
-
-  <!-- Footer -->
-  <footer>
-    <div class="container footer-inner">
-      <div>&copy; 2025 LOTPUB Coding School. All rights reserved.</div>
-      <div class="social">
-        <a href="#"><i class="fab fa-instagram"></i></a>
-        <a href="#"><i class="fab fa-twitter"></i></a>
-        <a href="#"><i class="fab fa-whatsapp"></i></a>
-      </div>
+    <div class="contact-info">
+      <h3>Direct Contact</h3>
+      <p><i class="fab fa-whatsapp"></i> WhatsApp: <a href="https://wa.me/234XXXXXXXXXX">+234 XXXXXXXXXX</a></p>
+      <p><i class="far fa-envelope"></i> Email: lotpub@example.com</p>
+      <p><i class="fab fa-instagram"></i> Instagram: @lotpub_coding</p>
     </div>
-  </footer>
+  </div>
+</main>
 
-   <!-- Floating WhatsApp Button -->
-  <a href="https://wa.me/2349022829616?text=I%20want%20to%20learn%20with%20LOTPUB" class="whatsapp-float" target="_blank">
-    <i class="fab fa-whatsapp"></i>
-  </a>
-  <script src="js/main.js"></script>
+<footer><div class="container">&copy; 2025 LOTPUB Coding School</div></footer>
+<a href="https://wa.me/234XXXXXXXXXX?text=I%20want%20to%20learn%20coding" class="whatsapp-float" target="_blank"><i class="fab fa-whatsapp"></i></a>
+
+<script>
+  (function() {
+    var hamburger = document.querySelector('.hamburger');
+    var navLinks = document.querySelector('.nav-links');
+    if (hamburger && navLinks) {
+      hamburger.addEventListener('click', function(e) {
+        e.stopPropagation();
+        navLinks.classList.toggle('show');
+        document.body.classList.toggle('menu-open');
+      });
+      document.querySelectorAll('.nav-links a').forEach(function(link) {
+        link.addEventListener('click', function() {
+          navLinks.classList.remove('show');
+          document.body.classList.remove('menu-open');
+        });
+      });
+      document.addEventListener('click', function(e) {
+        if (!navLinks.contains(e.target) && !hamburger.contains(e.target) && navLinks.classList.contains('show')) {
+          navLinks.classList.remove('show');
+          document.body.classList.remove('menu-open');
+        }
+      });
+    }
+    var contactForm = document.getElementById('contactForm');
+    if (contactForm) {
+      contactForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        var name = document.getElementById('name').value;
+        var email = document.getElementById('email').value;
+        var course = document.getElementById('course').value;
+        var message = document.getElementById('message').value;
+        var waMsg = `Hello LOTPUB, I'm interested in learning coding.%0A%0AName: ${encodeURIComponent(name)}%0AEmail: ${encodeURIComponent(email)}%0ACourse: ${encodeURIComponent(course)}%0AMessage: ${encodeURIComponent(message)}`;
+        window.open(`https://wa.me/234XXXXXXXXXX?text=${waMsg}`, '_blank');
+      });
+    }
+  })();
+</script>
 </body>
 </html>
