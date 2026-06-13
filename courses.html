@@ -112,6 +112,47 @@
   <a href="https://wa.me/2349022829616?text=I%20want%20to%20learn%20with%20LOTPUB" class="whatsapp-float" target="_blank">
     <i class="fab fa-whatsapp"></i>
   </a>
-  <script src="js/main.js"></script>
+  <!-- EXTERNAL JS (make sure path is correct) -->
+<script src="js/main.js"></script>
+
+<!-- INLINE FALLBACK (in case external JS fails) -->
+<script>
+  (function() {
+    // Wait for DOM to load
+    function init() {
+      var hamburger = document.querySelector('.hamburger');
+      var navLinks = document.querySelector('.nav-links');
+      var body = document.body;
+
+      if (!hamburger || !navLinks) return;
+
+      hamburger.addEventListener('click', function(e) {
+        e.stopPropagation();
+        navLinks.classList.toggle('show');
+        body.classList.toggle('menu-open');
+      });
+
+      document.querySelectorAll('.nav-links a').forEach(function(link) {
+        link.addEventListener('click', function() {
+          navLinks.classList.remove('show');
+          body.classList.remove('menu-open');
+        });
+      });
+
+      document.addEventListener('click', function(e) {
+        if (!navLinks.contains(e.target) && !hamburger.contains(e.target) && navLinks.classList.contains('show')) {
+          navLinks.classList.remove('show');
+          body.classList.remove('menu-open');
+        }
+      });
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', init);
+    } else {
+      init();
+    }
+  })();
+</script>
 </body>
 </html>
