@@ -15,7 +15,7 @@ body {
 
 /* Color Variables */
 :root {
-  --primary: #5c9af6;
+    --primary: #5c9af6;
   --primary-dark: #2851d9;
   --primary-light: #C4B5FD;
   --secondary: #467ee5;
