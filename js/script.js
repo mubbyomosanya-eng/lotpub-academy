@@ -1,77 +1,83 @@
-// Wait for DOM to be fully loaded
 document.addEventListener('DOMContentLoaded', function() {
-
-  // ========== HAMBURGER MENU TOGGLE ==========
+  // ===== MOBILE MENU TOGGLE =====
   const hamburger = document.querySelector('.hamburger');
   const navLinks = document.querySelector('.nav-links');
+  const body = document.body;
 
   if (hamburger && navLinks) {
-    hamburger.addEventListener('click', function() {
+    hamburger.addEventListener('click', (e) => {
+      e.stopPropagation();
       navLinks.classList.toggle('show');
+      body.classList.toggle('menu-open');
+    });
+
+    // Close menu when clicking any nav link
+    const allLinks = document.querySelectorAll('.nav-links a');
+    allLinks.forEach(link => {
+      link.addEventListener('click', () => {
+        navLinks.classList.remove('show');
+        body.classList.remove('menu-open');
+      });
+    });
+
+    // Close menu when clicking outside
+    document.addEventListener('click', (e) => {
+      if (!navLinks.contains(e.target) && !hamburger.contains(e.target) && navLinks.classList.contains('show')) {
+        navLinks.classList.remove('show');
+        body.classList.remove('menu-open');
+      }
     });
   }
 
-  // ========== FAQ ACCORDION (only on faq.html) ==========
+  // ===== FAQ ACCORDION =====
   const faqItems = document.querySelectorAll('.faq-item');
   faqItems.forEach(item => {
-    item.addEventListener('click', function() {
-      this.classList.toggle('active');
-    });
+    const question = item.querySelector('.faq-question');
+    if (question) {
+      question.addEventListener('click', (e) => {
+        e.stopPropagation();
+        // Optional: close others
+        faqItems.forEach(other => {
+          if (other !== item && other.classList.contains('active')) {
+            other.classList.remove('active');
+          }
+        });
+        item.classList.toggle('active');
+      });
+    }
   });
 
-  // ========== CONTACT FORM SUBMISSION (WhatsApp redirect) ==========
+  // ===== CONTACT FORM SUBMISSION (WhatsApp) =====
   const contactForm = document.getElementById('contactForm');
   if (contactForm) {
     contactForm.addEventListener('submit', function(e) {
       e.preventDefault();
-
-      // Get form values
       const name = document.getElementById('name')?.value || '';
       const email = document.getElementById('email')?.value || '';
       const course = document.getElementById('course')?.value || '';
       const message = document.getElementById('message')?.value || '';
 
-      // Build WhatsApp message
       let waMessage = `Hello LOTPUB, I'm interested in learning coding.%0A`;
       waMessage += `%0A*Name:* ${encodeURIComponent(name)}`;
       waMessage += `%0A*Email:* ${encodeURIComponent(email)}`;
-      if (course && course !== '') {
-        waMessage += `%0A*Course interested in:* ${encodeURIComponent(course)}`;
-      }
-      if (message && message !== '') {
-        waMessage += `%0A%0A*Message:* ${encodeURIComponent(message)}`;
-      }
+      if (course && course !== '') waMessage += `%0A*Course interested in:* ${encodeURIComponent(course)}`;
+      if (message && message !== '') waMessage += `%0A%0A*Message:* ${encodeURIComponent(message)}`;
 
-      // WhatsApp number – replace XXXXXXXXXX with actual number
-      const phoneNumber = '2349022829616'; // <-- CHANGE THIS TO YOUR REAL NUMBER
-      const waLink = `https://wa.me/${phoneNumber}?text=${waMessage}`;
-
-      // Open WhatsApp in new tab
-      window.open(waLink, '_blank');
+      const phoneNumber = '234XXXXXXXXXX'; // Replace with your WhatsApp number
+      window.open(`https://wa.me/${phoneNumber}?text=${waMessage}`, '_blank');
     });
   }
 
-  // ========== SMOOTH SCROLL FOR ANCHOR LINKS ==========
+  // ===== SMOOTH SCROLL FOR ANCHOR LINKS (if any) =====
   document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function(e) {
       const hash = this.getAttribute('href');
       if (hash === '#' || hash === '#') return;
       const target = document.querySelector(hash);
-      if (target && this.getAttribute('href').startsWith('#')) {
+      if (target && hash.startsWith('#')) {
         e.preventDefault();
         target.scrollIntoView({ behavior: 'smooth' });
       }
     });
   });
-
-  // ========== CLOSE MOBILE MENU AFTER CLICKING A LINK ==========
-  const allNavLinks = document.querySelectorAll('.nav-links a');
-  allNavLinks.forEach(link => {
-    link.addEventListener('click', () => {
-      if (navLinks && navLinks.classList.contains('show')) {
-        navLinks.classList.remove('show');
-      }
-    });
-  });
-
 });
